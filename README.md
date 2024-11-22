@@ -10,7 +10,7 @@ To facilitate running a mini-demo, we provide several Jupyter Notebooks for ease
 
 The following figure (`pipeline.pdf`) provides a high-level overview of our workflow, detailing the steps from dataset preparation to model distillation:  
 
-![Pipeline Overview](pipeline.pdf)
+![Pipeline Overview](pipeline.png)
 
 ---
 
