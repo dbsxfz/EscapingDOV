@@ -1,8 +1,8 @@
 # Evading Data Provenance in Deep Neural Networks
 
-This repository contains the core implementation of **Evading Data Provenance (DOV) in Deep Neural Networks**, a work currently **under review for CVPR 2025**. It provides a simple demonstration using the CIFAR-10 dataset and **BadNets** as the DOV method.
+This repository contains the core implementation of **Evading Data Provenance in Deep Neural Networks**, currently **under review for CVPR 2025**. It provides a simple demonstration using the CIFAR-10 dataset and **BadNets** as the DOV method.
 
-To facilitate running a mini-demo, we provide several Jupyter Notebooks for ease of use. A more comprehensive and rigorously encapsulated pipeline will be made available after the review process is complete.
+To facilitate running a mini-demo, we provide several Jupyter Notebooks for ease of use. A more comprehensive pipeline will be made available after the review process is completed.
 
 ---
 
@@ -27,7 +27,7 @@ The following figure (`pipeline.pdf`) provides a high-level overview of our work
    Place the model under the `models` directory (`models/mobileclip_s0`).
 
 4. **OpenAI API Key** (Optional):  
-   While not mandatory, having an API key enables generating new LLM descriptions. The descriptions used in our experiments are already provided.
+   While not mandatory, having an API key enables generating new LLM descriptions. The LLM descriptions used in our experiments are already provided.
 
 ---
 
@@ -53,7 +53,7 @@ Our code does not rely on features introduced in recent versions of these librar
 
 ## Workflow
 
-### 1. Generate Class Descriptions with LLM
+### 1. Generate Class Descriptions with LLM (Optional)
 Generate descriptions for CIFAR-10 categories using an LLM, saved as `cifar10.json` (already  provided). The file should be placed in the `generate_prompts` directory.  
 
 - Use `generate_prompts/generate_image_prompts.ipynb` to create new descriptions.  
@@ -61,8 +61,8 @@ Generate descriptions for CIFAR-10 categories using an LLM, saved as `cifar10.js
 
 ---
 
-### 2. Extract Gallery Set Features with VLFM
-Extract features from the gallery set using a VLFM (e.g., MobileCLIP) and save them as a **feature bank** (`data/trainset_128.pt`).  
+### 2. Extract Gallery Set Features with VLM
+Extract features from the gallery set using a VLM (e.g., MobileCLIP) and save them as a **feature bank** (`data/trainset_128.pt`).  
 
 - Refer to `choose_index/GallerySetIndex.ipynb` for details.
 
@@ -71,39 +71,39 @@ Extract features from the gallery set using a VLFM (e.g., MobileCLIP) and save t
 ### 3. Prepare a Teacher Model
 We assume the existence of a CIFAR-10 dataset protected by DOV (e.g., **BadNets**) and a pre-trained ResNet-18 teacher model.  
 
-- The teacher model used in our experiments should be trained by the user. Please refer to the instructions and code in `DOV/badnets.ipynb` for training the teacher model and save it to `models/badnets/resnet18_50epochs.pth`.  
+- The teacher model should be trained by the user (adversary). Please refer to the instructions and code in `DOV/badnets.ipynb` for training the teacher model and save it to `models/badnets/resnet18_50epochs.pth`.  
 
 ---
 
-### 4. Select Transfer Set Indices
-Use the gallery set to select indices corresponding to the transfer set.  
+### 4. Transfer Set Curation
+Select indices from the gallery set as the final transfer set.  
 
 - For the BadNets example, refer to `choose_index/badnets_index.ipynb`.  
 - The selected indices are already provided as `data/badnets_indices.npy`.
 
 ---
 
-### 5. Construct the Transfer Set
-Using the provided indices, construct and save the transfer set for future use.  
+### 5. Save the Transfer Set
+Using the selected indices, resize and save the transfer set images for future use.  
 
 - Refer to `choose_index/indices_to_images.ipynb` for detailed steps.
 
 ---
 
-### 6. Generate Corruptions and Perturbations
-Generate corruption sequences and perturbations using the teacher model:  
+### 6. Generate Corruptions and Perturbations for Selective Knowledge Transfer
+Generate corruption chain and perturbations using the teacher model:  
 
 - **Corruptions**: Refer to `distill/badnets_corruption.ipynb`.  
 - **Perturbations**: Refer to `distill/badnets_perturbation.ipynb`.  
 
-Rely on the GPU-optimized `corruptions.py`, significantly enhancing efficiency.  
+The GPU-optimized `corruptions.py` significantly improves efficiency.  
 
 - Outputs are saved as `data/badnets_corruptions_sequence.pkl` and `data/badnets_perturbations.pt` (already provided).
 
 ---
 
-### 7. Distill the Student Model
-Distill a student model capable of **escaping DOV** using the generated corruptions and perturbations.  
+### 7. Transfer Knowledge to the Surrogate Student
+Transfer Knowledge from the teacher to the surrogate student capable of **escaping DOV** using the generated corruptions and perturbations.  
 
 - - The resulting student model should also be trained by the user and saved to `models/badnets/student.pth`. Instructions are provided in `distill/OOD_distill_badnets_final.ipynb`.
 
