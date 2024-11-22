@@ -2,6 +2,8 @@
 
 This repository contains the core implementation of **Evading Data Provenance (DOV) in Deep Neural Networks**, a work currently **under review for CVPR 2025**. It provides a simple demonstration using the CIFAR-10 dataset and **BadNets** as the DOV method.
 
+To facilitate running a mini-demo, we provide several Jupyter Notebooks for ease of use. A more comprehensive and rigorously encapsulated pipeline will be made available after the review process is complete.
+
 ---
 
 ## Pipeline Overview
