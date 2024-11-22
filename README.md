@@ -1,6 +1,6 @@
 # Evading Data Provenance in Deep Neural Networks
 
-This repository contains the core implementation of **Evading Data Provenance in Deep Neural Networks**, currently **under review for CVPR 2025**. It provides a simple demonstration using the CIFAR-10 dataset and **BadNets** as the DOV method.
+This repository contains the core implementation of **Evading Data Provenance in Deep Neural Networks**, currently **under review for CVPR 2025**. It provides a simple demonstration using the CIFAR-10 dataset and BadNets as the DOV method.
 
 To facilitate running a mini-demo, we provide several Jupyter Notebooks for ease of use. A more comprehensive pipeline will be made available after the review process is completed.
 
@@ -69,7 +69,7 @@ Extract features from the gallery set using a VLM (e.g., MobileCLIP) and save th
 ---
 
 ### 3. Prepare a Teacher Model
-We assume the existence of a CIFAR-10 dataset protected by DOV (e.g., **BadNets**) and a pre-trained ResNet-18 teacher model.  
+We assume the existence of a CIFAR-10 dataset protected by DOV (e.g., BadNets) and a pre-trained ResNet-18 teacher model.  
 
 - The teacher model should be trained by the user (adversary). Please refer to the instructions and code in `DOV/badnets.ipynb` for training the teacher model and save it to `models/badnets/resnet18_50epochs.pth`.  
 
@@ -103,7 +103,7 @@ The GPU-optimized `corruptions.py` significantly improves efficiency.
 ---
 
 ### 7. Transfer Knowledge to the Surrogate Student
-Transfer Knowledge from the teacher to the surrogate student capable of **escaping DOV** using the generated corruptions and perturbations.  
+Transfer Knowledge from the teacher to the surrogate student capable of **Escaping DOV** using the generated corruptions and perturbations.  
 
 - - The resulting student model should also be trained by the user and saved to `models/badnets/student.pth`. Instructions are provided in `distill/OOD_distill_badnets_final.ipynb`.
 
