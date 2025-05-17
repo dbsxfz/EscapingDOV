@@ -8,7 +8,7 @@ To facilitate running a mini-demo, we provide several Jupyter Notebooks for ease
 
 ## Pipeline Overview
 
-The following figure (`pipeline.png`) provides a high-level overview of our workflow, detailing the steps from dataset preparation to model distillation:  
+Figure 1. Overall Pipeline of Escaping DOV. (a) Transfer Set Curation (§3.2): Starting from an OOD gallery set, samples are clustered using a vision-language model (VLM) to align semantically with the copyright dataset. They are then ranked by distribution proximity to measure the similarity to copyright set samples, and filtered through consensus ensemble which ensures agreement between the teacher model and VLM, resulting in an optimal transfer set with informative and identifier-free samples. (b) Selective Knowledge Transfer (§3.3): The student model is trained to maintain output invariance under the teacher’s worst-case perturbations and corruptions, thereby suppressing spurious watermark features and overconfidence. This facilitates the transfer of task-relevant yet identifier-agnostic knowledge from the teacher to the student.
 
 ![Pipeline Overview](pipeline.png)
 
